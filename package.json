@@ -1,0 +1,38 @@
+{
+  "name": "ask",
+  "version": "1.0.0",
+  "description": "Anonymous Q&A",
+  "main": "index.js",
+  "repository": "https://github.com/rodrigoaddor/ask",
+  "author": "Rodrigo Addor <rodrigotladdor@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "parcel serve ./src/index.html",
+    "build": "parcel build ./src/index.html"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
+    "@rematch/core": "^2.0.0-next.10",
+    "dotenv": "^10.0.0",
+    "nanoid": "^3.1.23",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hot-toast": "^2.0.0",
+    "react-loading": "^2.0.3",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-smooth-dnd": "^0.11.1",
+    "socket.io-client": "^4.1.2",
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {
+    "@types/react-dom": "^17.0.7",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/twitter": "^1.7.1",
+    "parcel": "next",
+    "typescript": "^4.3.2"
+  }
+}
