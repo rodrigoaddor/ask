@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 
+import ReactLoading from 'react-loading';
+
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-
-import ReactLoading from 'react-loading';
 
 import { GameStage } from '../data/api';
 import { useReady } from '../hooks/api';

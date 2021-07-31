@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+
+import toast from 'react-hot-toast';
 import {useHistory} from 'react-router-dom';
 
 import Box from '@material-ui/core/Box';
@@ -7,10 +9,9 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import toast from 'react-hot-toast';
-import {useSocket} from '../hooks/socket';
 
 import {joinRoom, newRoom} from '../data/api';
+import {useSocket} from '../hooks/socket';
 
 const protocol = process.env.PROTOCOL;
 
