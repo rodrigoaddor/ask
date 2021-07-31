@@ -1,6 +1,6 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { Prompt, useRouteMatch } from 'react-router';
+import React, { useEffect } from 'react';
+
+import { Prompt, useRouteMatch } from 'react-router-dom';
 
 const KeepInApp: React.FC = () => {
   const isPlaying = !useRouteMatch('/');

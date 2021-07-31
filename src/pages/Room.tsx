@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { useRoom } from '../hooks/room';
 import Waiting from './Waiting';
 import Questions from './Questions';
 
-import { useRoom } from '../hooks/room';
 import Answers from './Answers';
 import Results from './Results';
 
 const Room: React.FC = () => {
   const { room: id } = useParams<{ room: string }>();
-  const { stage, players, ready, questions, answers, debug } = useRoom(id);
+  const { stage, players, ready, questions, answers } = useRoom(id);
 
   useEffect(() => {
     console.log(stage);

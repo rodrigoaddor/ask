@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { Socket } from 'socket.io-client';
+import {createContext, useContext, useEffect, useState} from 'react';
+import {Socket} from 'socket.io-client';
 
 export const SocketContext = createContext<Socket>(null as unknown as Socket);
 
@@ -23,14 +23,14 @@ export const useEvent = <T, U>({
   initialData?: U;
 }): [T | undefined, EventEmitter<U>] => {
   const socket = useContext(SocketContext);
-  const [data, setData] = useState<T>();
+  const [currentData, setCurrentData] = useState<T>();
 
-  const emit: EventEmitter<U> = (data?: U) => {
-    return socket.emit(event, data);
-  };
+  const emit: EventEmitter<U> = (data?: U) => socket.emit(event, data);
 
   useEffect(() => {
-    const listener = (newData: T) => setData(newData);
+    const listener = (newData: T) => {
+      setCurrentData(newData);
+    };
 
     socket.on(event, listener);
 
@@ -43,5 +43,5 @@ export const useEvent = <T, U>({
     };
   }, []);
 
-  return [data, emit];
+  return [currentData, emit];
 };

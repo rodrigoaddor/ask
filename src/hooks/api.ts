@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSocket } from './socket';
 
 export const useReady = (): {
@@ -8,21 +8,21 @@ export const useReady = (): {
 } => {
   const socket = useSocket();
 
-  const [ready, _setReady] = useState(false);
-  const [data, setData] = useState<any>();
+  const [internalReady, setInternalReady] = useState(false);
+  const [internalData, setInternalData] = useState<any>();
 
   const setReady = (isReady: boolean, data?: any) => {
-    _setReady(isReady);
-    setData(data);
+    setInternalReady(isReady);
+    setInternalData(data);
   };
 
   const toggleReady = () => {
-    setReady(!ready);
+    setReady(!internalReady);
   };
 
   useEffect(() => {
-    socket.emit('ready', { ready, data });
-  }, [ready]);
+    socket.emit('ready', { ready: internalReady, data: internalData });
+  }, [internalReady]);
 
-  return { ready, setReady, toggleReady };
+  return { ready: internalReady, setReady, toggleReady };
 };

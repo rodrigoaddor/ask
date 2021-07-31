@@ -8,17 +8,20 @@ export const emitBuilder =
     event: string,
     defaultData?: Data
   ) =>
-  (withEmit: WithEmit, data?: Data) =>
+  async (withEmit: WithEmit, data?: Data) =>
     Promise.race<Response>([
       new Promise<Response>((res) => {
         withEmit.emit(event, data ?? defaultData ?? {}, (response: Response) => {
           if (response.status === 'error') {
             toast.error(`API Error: ${response.code}`);
           }
+
           res(response);
         });
       }),
       new Promise<never>((_, rej) => {
-        setTimeout(() => rej(`Request timed out for event '${event}'`), 1000);
+        setTimeout(() => {
+          rej(new Error(`Request timed out for event '${event}'`));
+        }, 1000);
       }),
     ]);

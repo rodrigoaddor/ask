@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -50,7 +50,13 @@ const Waiting: React.FC<WaitingProps> = ({ stage, players, ready: readyPlayers }
       <Box whiteSpace="break-spaces" textAlign="center">
         {message}
         <Box height="2rem" />
-        <Button color="primary" variant={ready ? 'outlined' : 'contained'} onClick={() => toggleReady()}>
+        <Button
+          color="primary"
+          variant={ready ? 'outlined' : 'contained'}
+          onClick={() => {
+            toggleReady();
+          }}
+        >
           {ready ? 'Not Ready' : 'Ready'}
         </Button>
       </Box>
