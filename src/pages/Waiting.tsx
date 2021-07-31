@@ -5,9 +5,8 @@ import Button from '@material-ui/core/Button';
 
 import ReactLoading from 'react-loading';
 
-import { useStyles } from './style';
-import { GameStage } from '../../data/api';
-import { useReady } from '../../hooks/api';
+import { GameStage } from '../data/api';
+import { useReady } from '../hooks/api';
 
 interface WaitingProps {
   stage: GameStage;
@@ -27,11 +26,26 @@ const Waiting: React.FC<WaitingProps> = ({ stage, players, ready: readyPlayers }
     }
   }, [stage, players, readyPlayers]);
 
-  const classes = useStyles();
-
   return (
-    <Box className={classes.root}>
-      <Box />
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        '& > *': {
+          justifyContent: 'center',
+          flex: '1 1 0',
+          '&:not(:first-child):not(:last-child)': {
+            flex: 'initial',
+            margin: (theme) => theme.spacing(4),
+          },
+          '&:first-child': { justifyContent: 'flex-end' },
+          '&:last-child': { justifyContent: 'flex-start' },
+        },
+      }}
+    >
       <ReactLoading type="bars" />
       <Box whiteSpace="break-spaces" textAlign="center">
         {message}

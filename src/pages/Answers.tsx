@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import { useReady } from '../../hooks/api';
+import { useReady } from '../hooks/api';
 
 interface AnswersProps {
   questions: string[];
@@ -35,7 +35,7 @@ const Answers: React.FC<AnswersProps> = ({ questions }) => {
   const canSubmit = useMemo(() => answers.every((answer) => answer.length), [answers]);
 
   return (
-    <Box display="flex" flexDirection="column" gridGap="2rem">
+    <Box display="flex" flexDirection="column" gap="2rem">
       {questions.map((question, index) => (
         <TextField
           key={index}

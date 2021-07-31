@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import { useReady } from '../../hooks/api';
+import { useReady } from '../hooks/api';
 
 const Questions: React.FC = () => {
   const { ready, setReady } = useReady();

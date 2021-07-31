@@ -1,50 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import makeStyles from '@material-ui/core/styles/makeStyles';
-
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { useSocket } from '../../hooks/socket';
+import { useSocket } from '../hooks/socket';
 
 import toast from 'react-hot-toast';
-import { joinRoom, newRoom } from '../../data/api';
+import { joinRoom, newRoom } from '../data/api';
 
 const protocol = process.env.PROTOCOL;
-
-const useStyles = makeStyles((theme) => ({
-  card: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-
-    padding: theme.spacing(2),
-    minHeight: theme.spacing(48),
-
-    '& > *:not(:last-child)': {
-      marginBottom: theme.spacing(2),
-    },
-  },
-
-  title: {
-    flexGrow: 1,
-  },
-
-  actions: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'stretch',
-    flexGrow: 1,
-    '& > *:not(:last-child)': {
-      marginBottom: theme.spacing(1),
-    },
-  },
-}));
 
 const Room: React.FC = () => {
   const socket = useSocket();
@@ -81,12 +49,24 @@ const Room: React.FC = () => {
     }
   };
 
-  const classes = useStyles();
-
   return (
     <Container maxWidth="xs">
-      <Paper className={classes.card} variant="outlined">
-        <Typography variant="h6" className={classes.title}>
+      <Paper
+        variant="outlined"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+
+          padding: (theme) => theme.spacing(2),
+          minHeight: (theme) => theme.spacing(48),
+
+          '& > *:not(:last-child)': {
+            marginBottom: (theme) => theme.spacing(2),
+          },
+        }}
+      >
+        <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Ask
         </Typography>
 
@@ -99,7 +79,18 @@ const Room: React.FC = () => {
         ></TextField>
         <TextField variant="filled" label="Name" size="small" disabled></TextField>
 
-        <Box className={classes.actions}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            alignItems: 'stretch',
+            flexGrow: 1,
+            '& > *:not(:last-child)': {
+              marginBottom: (theme) => theme.spacing(1),
+            },
+          }}
+        >
           <Button variant="contained" color="primary" disableElevation disabled={!!loading} onClick={handleJoinRoom}>
             Join Room
           </Button>

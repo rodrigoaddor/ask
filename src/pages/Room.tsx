@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
-import Waiting from '../Waiting';
-import Questions from '../Questions';
+import Waiting from './Waiting';
+import Questions from './Questions';
 
-import { useRoom } from '../../hooks/room';
-import Answers from '../Answers';
-import Results from '../Results';
+import { useRoom } from '../hooks/room';
+import Answers from './Answers';
+import Results from './Results';
 
 const Room: React.FC = () => {
   const { room: id } = useParams<{ room: string }>();
