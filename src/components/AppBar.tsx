@@ -8,12 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 
 export const AppBar: React.FC = () => (
-  <MuiAppBar position="static">
+  <MuiAppBar position='static'>
     <Toolbar>
-      <IconButton edge="start" color="inherit" size="large">
+      <IconButton edge='start' color='inherit' size='large'>
         <MenuIcon />
       </IconButton>
-      <Typography variant="h6">ASK</Typography>
+      <Typography variant='h6'>ASK</Typography>
     </Toolbar>
   </MuiAppBar>
 );

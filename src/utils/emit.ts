@@ -6,7 +6,7 @@ type WithEmit = { emit: Emit };
 export const emitBuilder =
   <Response extends Record<string, any>, Data extends Record<string, any> | null = null>(
     event: string,
-    defaultData?: Data
+    defaultData?: Data,
   ) =>
   async (withEmit: WithEmit, data?: Data) =>
     Promise.race<Response>([

@@ -9,7 +9,7 @@ const KeepInApp: React.FC = () => {
     console.log('isPlaying', isPlaying);
   }, [isPlaying]);
 
-  return <Prompt when={isPlaying} message="Are you sure you want to exit the game?" />;
+  return <Prompt when={isPlaying} message='Are you sure you want to exit the game?' />;
 };
 
 export default KeepInApp;

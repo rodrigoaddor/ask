@@ -15,10 +15,10 @@ const Questions: React.FC = () => {
   };
 
   return (
-    <Box display="flex" flexDirection="column">
+    <Box display='flex' flexDirection='column'>
       <TextField
-        variant="filled"
-        label="Question"
+        variant='filled'
+        label='Question'
         value={question}
         onChange={({ target: { value } }) => {
           setQuestion(value);

@@ -29,7 +29,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Toaster toastOptions={{ duration: 5000 }} />
-      {Boolean(socket) && (
+      {socket && (
         <SocketContext.Provider value={socket}>
           <Router>
             <Box
@@ -37,15 +37,16 @@ const App: React.FC = () => {
                 width: '100vw',
                 height: '100vh',
                 display: 'flex',
+                flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
             >
               <Switch>
-                <Route exact path="/">
+                <Route exact path='/'>
                   <Home />
                 </Route>
-                <Route exact path="/:room">
+                <Route exact path='/:room'>
                   <Room />
                 </Route>
               </Switch>

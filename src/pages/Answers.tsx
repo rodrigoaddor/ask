@@ -1,17 +1,17 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import {useReady} from '../hooks/api';
+import { useReady } from '../hooks/api';
 
 interface AnswersProps {
   questions: string[];
 }
 
-const Answers: React.FC<AnswersProps> = ({questions}) => {
-  const {setReady} = useReady();
+const Answers: React.FC<AnswersProps> = ({ questions }) => {
+  const { setReady } = useReady();
   const [answers, setAnswers] = useState<string[]>([]);
 
   useEffect(() => {
@@ -20,32 +20,32 @@ const Answers: React.FC<AnswersProps> = ({questions}) => {
     }
   }, [questions]);
 
-  const createAnswerHandler
-    = (index: number) =>
-      ({target: {value}}: React.ChangeEvent<HTMLInputElement>) => {
-        const newAnswers = [...answers];
-        newAnswers[index] = value;
-        setAnswers(newAnswers);
-      };
+  const createAnswerHandler =
+    (index: number) =>
+    ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+      const newAnswers = [...answers];
+      newAnswers[index] = value;
+      setAnswers(newAnswers);
+    };
 
   const handleSubmit = () => {
     setReady(true, answers);
   };
 
-  const canSubmit = useMemo(() => answers.every(answer => answer.length), [answers]);
+  const canSubmit = useMemo(() => answers.every((answer) => answer.length), [answers]);
 
   return (
-    <Box display="flex" flexDirection="column" gap="2rem">
+    <Box display='flex' flexDirection='column' gap='2rem'>
       {questions.map((question, index) => (
         <TextField
           key={index}
-          variant="outlined"
+          variant='outlined'
           label={question}
           value={answers[index]}
           onChange={createAnswerHandler(index)}
         />
       ))}
-      <Button variant="contained" disabled={!canSubmit} onClick={handleSubmit}>
+      <Button variant='contained' disabled={!canSubmit} onClick={handleSubmit}>
         Salvar
       </Button>
     </Box>

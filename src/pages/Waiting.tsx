@@ -29,29 +29,21 @@ const Waiting: React.FC<WaitingProps> = ({ stage, players, ready: readyPlayers }
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        display: 'grid',
+        gridTemplateRows: '1fr 0.5fr 1fr',
+        justifyItems: 'center',
         height: '100%',
-        '& > *': {
-          justifyContent: 'center',
-          flex: '1 1 0',
-          '&:not(:first-child):not(:last-child)': {
-            flex: 'initial',
-            margin: (theme) => theme.spacing(4),
-          },
-          '&:first-child': { justifyContent: 'flex-end' },
-          '&:last-child': { justifyContent: 'flex-start' },
-        },
       }}
     >
-      <ReactLoading type="bars" />
-      <Box whiteSpace="break-spaces" textAlign="center">
+      <Box />
+      <Box sx={{ alignSelf: 'center' }}>
+        <ReactLoading type='bars' />
+      </Box>
+      <Box whiteSpace='break-spaces' textAlign='center'>
         {message}
-        <Box height="2rem" />
+        <Box height='2rem' />
         <Button
-          color="primary"
+          color='primary'
           variant={ready ? 'outlined' : 'contained'}
           onClick={() => {
             toggleReady();
