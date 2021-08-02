@@ -83,7 +83,7 @@ const Room: React.FC = () => {
             color='primary'
             disableElevation
             disabled={!!loading || !hasRoom}
-            onClick={handleNewRoom}
+            onClick={handleJoinRoom}
             sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
           >
             Join Room
