@@ -1,17 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import toast from 'react-hot-toast';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-import {joinRoom, newRoom} from '../data/api';
-import {useSocket} from '../hooks/socket';
+import Area from '../components/Area';
+import { joinRoom, newRoom } from '../data/api';
+import { useSocket } from '../hooks/socket';
 
 const protocol = process.env.PROTOCOL;
 
@@ -25,7 +25,7 @@ const Room: React.FC = () => {
 
   const handleJoinRoom = async () => {
     setLoading('join');
-    const response = await joinRoom(socket, {room, protocol});
+    const response = await joinRoom(socket, { room, protocol });
     if (response.status === 'ok') {
       history.push(`/${response.id}`);
     } else {
@@ -33,10 +33,10 @@ const Room: React.FC = () => {
       toast.error(`Error: ${response.code}`);
     }
   };
-  
+
   useEffect(() => {
-  if (join) {
-    handleJoinRoom();
+    if (join) {
+      handleJoinRoom();
     }
   }, [join]);
 
@@ -50,37 +50,70 @@ const Room: React.FC = () => {
     }
   };
 
+  const hasRoom = useMemo(() => room.length > 0, [room.length > 0]);
+
   return (
-    <Container maxWidth="xs">
-      <Paper
-        variant="outlined"
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-
-          padding: theme => theme.spacing(2),
-          minHeight: theme => theme.spacing(48),
-
-          '& > *:not(:last-child)': {
-            marginBottom: theme => theme.spacing(2),
-          },
-        }}
-      >
-        <Typography variant="h6" sx={{flexGrow: 1}}>
-          Ask
-        </Typography>
-
-        <TextField
-          variant="filled"
-          label="Room ID"
-          size="small"
-          value={room}
-          onChange={e => {
-            setRoom(e.target.value);
+    <Area
+      title='Ask'
+      content={
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'stretch',
+            flex: '1 1 0',
+            width: '100%',
+            maxWidth: '20rem',
+            px: '2rem',
           }}
-         />
-        <TextField variant="filled" label="Name" size="small" disabled />
+        >
+          <TextField
+            variant='filled'
+            label='Room ID'
+            size='small'
+            value={room}
+            focused={hasRoom || undefined}
+            onChange={(e) => {
+              setRoom(e.target.value);
+            }}
+          />
+          <Button
+            variant={hasRoom ? 'contained' : 'outlined'}
+            color='primary'
+            disableElevation
+            disabled={!!loading || !hasRoom}
+            onClick={handleNewRoom}
+            sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
+          >
+            Join Room
+          </Button>
+        </Box>
+      }
+      actions={
+        <Button variant='outlined' color='primary' disableElevation disabled={!!loading} onClick={handleNewRoom}>
+          New Room
+        </Button>
+      }
+    />
+
+    /* <Area>
+        <Typography variant="h6">
+            Ask
+          </Typography>
+        <AreaHeader title='Ask' />
+
+        <AreaContent>
+          <TextField
+            variant='filled'
+            label='Room ID'
+            size='small'
+            value={room}
+            onChange={(e) => {
+              setRoom(e.target.value);
+            }}
+          />
+        </AreaContent>
 
         <Box
           sx={{
@@ -90,19 +123,20 @@ const Room: React.FC = () => {
             alignItems: 'stretch',
             flexGrow: 1,
             '& > *:not(:last-child)': {
-              marginBottom: theme => theme.spacing(1),
+              marginBottom: (theme) => theme.spacing(1),
             },
           }}
         >
-          <Button variant="contained" color="primary" disableElevation disabled={Boolean(loading)} onClick={handleJoinRoom}>
+
+        <AreaActions>
+          <Button variant='contained' color='primary' disableElevation disabled={!!loading} onClick={handleJoinRoom}>
             Join Room
           </Button>
-          <Button variant="outlined" color="primary" disableElevation disabled={Boolean(loading)} onClick={handleNewRoom}>
+          <Button variant='outlined' color='primary' disableElevation disabled={!!loading} onClick={handleNewRoom}>
             New Room
           </Button>
-        </Box>
-      </Paper>
-    </Container>
+        </AreaActions>
+      </Area> */
   );
 };
 

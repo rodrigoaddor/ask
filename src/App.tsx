@@ -32,25 +32,14 @@ const App: React.FC = () => {
       {socket && (
         <SocketContext.Provider value={socket}>
           <Router>
-            <Box
-              sx={{
-                width: '100vw',
-                height: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <Switch>
-                <Route exact path='/'>
-                  <Home />
-                </Route>
-                <Route exact path='/:room'>
-                  <Room />
-                </Route>
-              </Switch>
-            </Box>
+            <Switch>
+              <Route exact path='/'>
+                <Home />
+              </Route>
+              <Route exact path='/:room'>
+                <Room />
+              </Route>
+            </Switch>
           </Router>
         </SocketContext.Provider>
       )}
