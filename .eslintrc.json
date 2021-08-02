@@ -16,6 +16,7 @@
     "react/prop-types": "off",
     "react/no-array-index-key": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
     "no-fallthrough": "off",
     "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": false }],
     "max-len": ["error", { "code": 120, "ignoreUrls": true }],
