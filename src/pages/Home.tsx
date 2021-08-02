@@ -91,9 +91,18 @@ const Room: React.FC = () => {
         </Box>
       }
       actions={
-        <Button variant='outlined' color='primary' disableElevation disabled={!!loading} onClick={handleNewRoom}>
-          New Room
-        </Button>
+        <Box sx={{ width: '100%', maxWidth: '20rem', px: '2rem' }}>
+          <Button
+            variant='outlined'
+            color='primary'
+            disableElevation
+            disabled={!!loading}
+            onClick={handleNewRoom}
+            sx={{ width: '100%' }}
+          >
+            New Room
+          </Button>
+        </Box>
       }
     />
 
