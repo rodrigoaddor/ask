@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import ReactLoading from 'react-loading';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 import { GameStage } from '../data/api';
 import { useReady } from '../hooks/api';
@@ -14,34 +15,26 @@ interface WaitingProps {
   ready: number;
 }
 
-const Waiting: React.FC<WaitingProps> = ({ stage, players, ready: readyPlayers }) => {
+const Waiting: React.FC<WaitingProps> = ({ players, ready: readyPlayers }) => {
   const { ready, toggleReady } = useReady();
-
-  const message = useMemo(() => {
-    switch (stage) {
-      case 'waiting':
-        return `Waiting...\n${readyPlayers}/${players} players ready.`;
-      default:
-        return '';
-    }
-  }, [stage, players, readyPlayers]);
 
   return (
     <Box
       sx={{
         display: 'grid',
-        gridTemplateRows: '1fr 0.5fr 1fr',
+        gridTemplateRows: '2fr 1fr 2fr',
         justifyItems: 'center',
-        height: '100%',
+        height: '100vh',
       }}
     >
-      <Box />
+      <Box sx={{ alignSelf: 'end', whiteSpace: 'break-spaces', textAlign: 'center' }}>
+        <Typography variant='h4'>{`${readyPlayers} / ${players}`}</Typography>
+        <Typography variant='h6'>players are ready.</Typography>
+      </Box>
       <Box sx={{ alignSelf: 'center' }}>
         <ReactLoading type='bars' />
       </Box>
-      <Box whiteSpace='break-spaces' textAlign='center'>
-        {message}
-        <Box height='2rem' />
+      <Box sx={{ alignSelf: 'start' }}>
         <Button
           color='primary'
           variant={ready ? 'outlined' : 'contained'}
