@@ -5,9 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 
 import Area from '../components/Area';
 import { joinRoom, newRoom } from '../data/api';
@@ -71,11 +69,13 @@ const Room: React.FC = () => {
           <TextField
             variant='filled'
             label='Room ID'
-            size='small'
             value={room}
             focused={hasRoom || undefined}
             onChange={(e) => {
               setRoom(e.target.value);
+            }}
+            onKeyPress={({ key }) => {
+              if (key === 'Enter') handleJoinRoom();
             }}
           />
           <Button
@@ -105,47 +105,6 @@ const Room: React.FC = () => {
         </Box>
       }
     />
-
-    /* <Area>
-        <Typography variant="h6">
-            Ask
-          </Typography>
-        <AreaHeader title='Ask' />
-
-        <AreaContent>
-          <TextField
-            variant='filled'
-            label='Room ID'
-            size='small'
-            value={room}
-            onChange={(e) => {
-              setRoom(e.target.value);
-            }}
-          />
-        </AreaContent>
-
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-end',
-            alignItems: 'stretch',
-            flexGrow: 1,
-            '& > *:not(:last-child)': {
-              marginBottom: (theme) => theme.spacing(1),
-            },
-          }}
-        >
-
-        <AreaActions>
-          <Button variant='contained' color='primary' disableElevation disabled={!!loading} onClick={handleJoinRoom}>
-            Join Room
-          </Button>
-          <Button variant='outlined' color='primary' disableElevation disabled={!!loading} onClick={handleNewRoom}>
-            New Room
-          </Button>
-        </AreaActions>
-      </Area> */
   );
 };
 
