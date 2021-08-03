@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { render } from 'react-dom';
 
 import { Toaster } from 'react-hot-toast';
-import { MemoryRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { nanoid } from 'nanoid';
 import { io, Socket } from 'socket.io-client';
 
-import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 
