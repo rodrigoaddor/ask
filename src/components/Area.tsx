@@ -12,6 +12,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import Loading from './Loading';
+import Stack from './Stack';
+
 const AreaContainer = styled(Card)<CardProps>(() => ({
   display: 'flex',
   flexDirection: 'column',
@@ -29,11 +32,14 @@ const AreaActions = styled(CardActions)<CardActionsProps>(({ theme }) => ({
   },
 }));
 
-const AreaContent = styled(CardContent)<CardContentProps>(() => ({
+const AreaContent = styled(CardContent)<CardContentProps & { dim?: boolean }>(({ dim }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   flex: '1 1 0',
+  transition: 'opacity 0.5s ease',
+  opacity: dim ? 0.2 : 1,
+  pointerEvents: dim ? 'none' : 'auto',
 }));
 
 const AreaHeader = styled(CardHeader)<CardHeaderProps>(({ theme }) => ({
@@ -48,9 +54,10 @@ interface AreaProps {
   title: string;
   content: ReactNode;
   actions?: ReactNode;
+  loading?: boolean;
 }
 
-const Area = ({ title, content, actions }: AreaProps) => {
+const Area = ({ title, content, actions, loading }: AreaProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -81,7 +88,21 @@ const Area = ({ title, content, actions }: AreaProps) => {
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <AreaContainer>
         <AreaHeader title={title} />
-        <AreaContent>{content}</AreaContent>
+        <Stack>
+          <AreaContent dim={loading}>{content}</AreaContent>
+          <Box
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
+            sx={{
+              transition: 'opacity 0.5s ease 0.2s',
+              opacity: loading ? 1 : 0,
+              pointerEvents: 'none',
+            }}
+          >
+            <Loading />
+          </Box>
+        </Stack>
         {actions && <AreaActions>{actions}</AreaActions>}
       </AreaContainer>
     </Box>
