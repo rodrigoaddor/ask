@@ -1,11 +1,10 @@
 import React from 'react';
 
-import ReactLoading from 'react-loading';
-
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import Loading from '../components/Loading';
 import { GameStage } from '../data/api';
 import { useReady } from '../hooks/api';
 
@@ -32,7 +31,7 @@ const Waiting: React.FC<WaitingProps> = ({ players, ready: readyPlayers }) => {
         <Typography variant='h6'>players are ready.</Typography>
       </Box>
       <Box sx={{ alignSelf: 'center' }}>
-        <ReactLoading type='bars' />
+        <Loading />
       </Box>
       <Box sx={{ alignSelf: 'start' }}>
         <Button
