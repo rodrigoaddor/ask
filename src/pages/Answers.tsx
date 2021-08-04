@@ -48,7 +48,7 @@ const Answers: React.FC<AnswersProps> = ({ questions }) => {
     } else if (canSubmit) {
       handleSubmit();
     }
-  }, [currentQuestion, questions.length]);
+  }, [currentQuestion, questions.length, canSubmit]);
 
   return (
     <Area
@@ -104,20 +104,6 @@ const Answers: React.FC<AnswersProps> = ({ questions }) => {
         </Box>
       }
     />
-    // <Box display='flex' flexDirection='column' gap='2rem'>
-    //   {questions.map((question, index) => (
-    //     <TextField
-    //       key={index}
-    //       variant='outlined'
-    //       label={question}
-    //       value={answers[index] ?? ''}
-    //       onChange={createAnswerHandler(index)}
-    //     />
-    //   ))}
-    //   <Button variant='contained' disabled={!canSubmit} onClick={handleSubmit}>
-    //     Salvar
-    //   </Button>
-    // </Box>
   );
 };
 
