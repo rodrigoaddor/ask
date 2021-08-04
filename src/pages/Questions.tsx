@@ -8,7 +8,7 @@ import Area from '../components/Area';
 import { useReady } from '../hooks/api';
 
 const Questions: React.FC = () => {
-  const { setReady } = useReady();
+  const { setReady, ready } = useReady();
   const [question, setQuestion] = useState('');
 
   const handleSubmitQuestion = () => {
@@ -20,6 +20,7 @@ const Questions: React.FC = () => {
   return (
     <Area
       title='Questions'
+      loading={ready}
       content={
         <Box display='flex' flexDirection='column'>
           <TextField
