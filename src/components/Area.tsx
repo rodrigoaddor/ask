@@ -32,7 +32,9 @@ const AreaActions = styled(CardActions)<CardActionsProps>(({ theme }) => ({
   },
 }));
 
-const AreaContent = styled(CardContent)<CardContentProps & { dim?: boolean }>(({ dim }) => ({
+const AreaContent = styled(CardContent, { shouldForwardProp: (prop) => prop !== 'dim' })<
+  CardContentProps & { dim?: boolean }
+>(({ dim }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
