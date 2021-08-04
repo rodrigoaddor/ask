@@ -27,19 +27,22 @@ const Questions: React.FC = () => {
             variant='filled'
             label='Question'
             focused={hasQuestion || undefined}
+            disabled={ready}
             value={question}
             onChange={({ target: { value } }) => {
               setQuestion(value);
             }}
             onKeyPress={({ key }) => {
-              if (key === 'Enter') handleSubmitQuestion();
+              if (key === 'Enter') {
+                handleSubmitQuestion();
+              }
             }}
           />
           <Button
             variant={hasQuestion ? 'contained' : 'outlined'}
             color='primary'
             disableElevation
-            disabled={!hasQuestion}
+            disabled={!hasQuestion || ready}
             onClick={handleSubmitQuestion}
             sx={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
           >
