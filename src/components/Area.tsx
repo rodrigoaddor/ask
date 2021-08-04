@@ -12,6 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import Dimmable from './Dimmable';
 import Loading from './Loading';
 import Stack from './Stack';
 
@@ -32,16 +33,11 @@ const AreaActions = styled(CardActions)<CardActionsProps>(({ theme }) => ({
   },
 }));
 
-const AreaContent = styled(CardContent, { shouldForwardProp: (prop) => prop !== 'dim' })<
-  CardContentProps & { dim?: boolean }
->(({ dim }) => ({
+const AreaContent = styled(CardContent)<CardContentProps>(() => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   flex: '1 1 0',
-  transition: 'opacity 0.5s ease',
-  opacity: dim ? 0.2 : 1,
-  pointerEvents: dim ? 'none' : 'auto',
 }));
 
 const AreaHeader = styled(CardHeader)<CardHeaderProps>(({ theme }) => ({
@@ -91,7 +87,10 @@ const Area = ({ title, content, actions, loading }: AreaProps) => {
       <AreaContainer>
         <AreaHeader title={title} />
         <Stack>
-          <AreaContent dim={loading}>{content}</AreaContent>
+          <Dimmable display='flex' flexDirection='column' dim={loading}>
+            <AreaContent>{content}</AreaContent>
+            {actions && <AreaActions>{actions}</AreaActions>}
+          </Dimmable>
           <Box
             display='flex'
             justifyContent='center'
@@ -105,7 +104,6 @@ const Area = ({ title, content, actions, loading }: AreaProps) => {
             <Loading />
           </Box>
         </Stack>
-        {actions && <AreaActions>{actions}</AreaActions>}
       </AreaContainer>
     </Box>
   );
