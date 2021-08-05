@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, ChangeEvent, KeyboardEvent } from 'react';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -22,19 +22,19 @@ const Answers: React.FC<AnswersProps> = ({ questions }) => {
       setAnswers(new Array(questions.length).fill(''));
       setCurrentQuestion(0);
     }
-  }, [questions, answers]);
+  }, [questions, answers]); 
 
-  const createAnswerHandler =
-    (index: number) =>
-    ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
-      const newAnswers = [...answers];
-      newAnswers[index] = value;
-      setAnswers(newAnswers);
-    };
-
-  const handleSubmit = () => {
-    setReady(true, answers);
+  const handleAnswerChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    setAnswers((previousAnswers) => {
+      const newAnswers = [...previousAnswers];
+      newAnswers[currentQuestion] = value;
+      return newAnswers;
+    });
   };
+
+  const handleSubmit = useCallback(() => {
+    setReady(true, answers);
+  }, [answers]);
 
   const canSubmit = useMemo(() => answers.every((answer) => answer.length), [answers]);
 
@@ -48,7 +48,14 @@ const Answers: React.FC<AnswersProps> = ({ questions }) => {
     } else if (canSubmit) {
       handleSubmit();
     }
-  }, [currentQuestion, questions.length, canSubmit]);
+  }, [currentQuestion, questions.length, canSubmit, answers]);
+
+  const handleEnterKey = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && answers[currentQuestion].length > 0) {
+      handleNextQuestion();
+      event.preventDefault();
+    }
+  };
 
   return (
     <Area
@@ -72,10 +79,8 @@ const Answers: React.FC<AnswersProps> = ({ questions }) => {
             variant='outlined'
             label='Answer'
             value={answers[currentQuestion] ?? ''}
-            onChange={createAnswerHandler(currentQuestion)}
-            onKeyPress={({ key }) => {
-              if (key === 'Enter' && answers[currentQuestion].length > 0) handleNextQuestion();
-            }}
+            onChange={handleAnswerChange}
+            onKeyPress={handleEnterKey}
           />
         </Box>
       }
